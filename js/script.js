@@ -17,29 +17,32 @@ let diametroAgujeroH1= document.getElementById("diametroAgujeroH1");
 let diametroAgujeroH2= document.getElementById("diametroAgujeroH2");
 let alturaH1H2= document.getElementById("diametroAgujeroH2");
 let anchorH1H2= document.getElementById("diametroAgujeroH2");
+const imgWaterKry = new Image();
+let resultados = document.getElementById("resultados");
 
 
 
 
-
-function drawTanque(tanque, dezplazamiento){
+function drawTanque(tanque, dezplazamiento, altura=50, diametro = 50, diametroAgujero = 5,alturaAgujero=10, nivelAgua=30){
 
     if(tanque.getContext){
         
         let tanCa = tanque.getContext('2d');
+           
         tanCa.beginPath();
         tanCa.moveTo(50+dezplazamiento,50);
-        tanCa.lineTo(50+dezplazamiento,150);
-        tanCa.lineTo(200+dezplazamiento,150);
-        tanCa.lineTo(200+dezplazamiento,50);
-
+        tanCa.lineTo(50+dezplazamiento,altura+50);
+        tanCa.lineTo(diametro+50+dezplazamiento,altura+50);
+        tanCa.lineTo(diametro+50+dezplazamiento,50);
         tanCa.fillStyle = "blue";
-        tanCa.fillRect(51+dezplazamiento,51,149,99);
+        tanCa.fillRect(51+dezplazamiento,51+(50-nivelAgua),diametro-1,nivelAgua-1);
+        tanCa.fillStyle = 'gray';
+        tanCa.fillRect(51+dezplazamiento+diametro,50+altura-diametroAgujero-alturaAgujero,5,diametroAgujero);
         //tanCa.closePath();
         tanCa.stroke();
+ 
     }
 }
-
 
 
 function calculateCaudal(){
@@ -49,7 +52,6 @@ function calculateCaudal(){
     console.log("caudal: " + caudal);
     
 }
-
 
 
 
