@@ -30,57 +30,80 @@
                     Iniciar Simulacion
                 </button>
                 <div >
-                    <div class="m-2">
-                        <label for="">Altura Tanque 1</label>
-                        <input id="alturaH1" type="number" max="100" min="0" onchange="rePaint()">
-                    </div>
-                    <div class="m-2">
-                        <label for="">Altura Tanque 2</label>
-                        <input id="alturaH2" type="number" max="100" min="0" onchange="rePaint()">
-                    </div>
-                    <div class="m-2">
-                        <label for="">Diametro Tanque 1</label>
-                        <input id="diametroH1" type="number" max="100" min="0" onchange="rePaint()">
-                    </div>
-                    <div class="m-2">
-                        <label for="">Diametro Tanque 2</label>
-                        <input id="diametroH2" type="number" max="100" min="0" onchange="rePaint()">
-                    </div class="m-2">
-                    <div class="m-2">
-                        <label for="">Diametro Agujero tanque 1</label>
-                        <input id="diametroAgujeroH1" type="number" max="100" min="0" onchange="rePaint()">
-                    </div>
-                    <div class="m-2">
-                        <label for="">Diametro Agujero tanque 2</label>
-                        <input id="diametroAgujeroH2" type="number" max="100" min="0" onchange="rePaint()">
-                    </div >
-                    <div class="m-2">
-                        <label for="">Altura Agujero tanque 1</label>
-                        <input id="alturaAgujeroH1" type="number" max="100" min="0" onchange="rePaint()">
-                    </div>
-                    <div class="m-2">
-                        <label for="">Altura Agujero tanque 2</label>
-                        <input id="alturaAgujeroH2" type="number" max="100" min="0" onchange="rePaint()">
-                    </div >
-                    <div class="m-2">
-                        <label for="">Nivel incial Agua tanque 1 </label>
-                        <input id="nivelH1" type="number" max="100" min="0" onchange="rePaint()">
-                    </div>
-                    <div class="m-2">
-                        <label for="">Nivel inical Agua tanque 2 </label>
-                        <input id="nivelH2" type="number" max="100" min="0" onchange="rePaint()">
-                    </div>
-                    <div class="m-2">
-                        <label for="">Separacion entre tanques horizontal </label>
-                        <input id="anchorH1H2" type="number" max="100" min="0" onchange="rePaint()">
-                    </div> 
-                    <div class="m-2">
-                        <label for="">Separacion entre tanques vertical </label>
-                        <input id="alturaH1H2" type="number" max="100" min="0" onchange="rePaint()">
-                    </div>  
+                    <form action="">
+                        <div class="m-2">
+                            <label for="">Altura Tanque 1</label>
+                            <input id="alturaH1" type="number" max="100" min="0" onchange="rePaint()" required>
+                        </div>
+                        <div class="m-2">
+                            <label for="">Altura Tanque 2</label>
+                            <input id="alturaH2" type="number" max="100" min="0" onchange="rePaint()"required>
+                        </div>
+                        <div class="m-2">
+                            <label for="">Diametro Tanque 1</label>
+                            <input id="diametroH1" type="number" max="100" min="0" onchange="rePaint()"required>
+                        </div>
+                        <div class="m-2">
+                            <label for="">Diametro Tanque 2</label>
+                            <input id="diametroH2" type="number" max="100" min="0" onchange="rePaint()"required>
+                        </div class="m-2">
+                        <div class="m-2">
+                            <label for="">Diametro Agujero tanque 1</label>
+                            <input id="diametroAgujeroH1" type="number" max="100" min="0" onchange="rePaint()"required>
+                        </div>
+                        <div class="m-2">
+                            <label for="">Diametro Agujero tanque 2</label>
+                            <input id="diametroAgujeroH2" type="number" max="100" min="0" onchange="rePaint()"required>
+                        </div >
+                        <div class="m-2">
+                            <label for="">Altura Agujero tanque 1</label>
+                            <input id="alturaAgujeroH1" type="number" max="100" min="0" onchange="rePaint()"required>
+                        </div>
+                        <div class="m-2">
+                            <label for="">Altura Agujero tanque 2</label>
+                            <input id="alturaAgujeroH2" type="number" max="100" min="0" onchange="rePaint()"required>
+                        </div >
+                        <div class="m-2">
+                            <label for="">Nivel incial Agua tanque 1 </label>
+                            <input id="nivelH1" type="number" max="100" min="0" onchange="rePaint()"required>
+                        </div>
+                        <div class="m-2">
+                            <label for="">Nivel inical Agua tanque 2 </label>
+                            <input id="nivelH2" type="number" max="100" min="0" onchange="rePaint()"required>
+                        </div>
+                        <div class="m-2">
+                            <label for="">Separacion entre tanques horizontal </label>
+                            <input id="anchorH1H2" type="number" max="100" min="0" onchange="rePaint()"required>
+                        </div> 
+                        <div class="m-2">
+                            <label for="">Separacion entre tanques vertical </label>
+                            <input id="alturaH1H2" type="number" max="100" min="0" onchange="rePaint()"required>
+                        </div> 
+                    </form> 
                 </div>
-                <div class="container" id="resultados">
-
+                
+            </div>
+            <div class="row">
+                <div class="container" id="resultados" >
+                    <label>Resultados:</label>
+                    <p>
+                        ¿Cual es el volumen que se pierde por desbordamiento del tanque 2 y por falta de presion <br> en la salida del tanque 1?:
+                    </p>
+                    <label>Perdida:</label>
+                    <label id="aguaPerdida"> </label>
+                    <label> cm³ de agua</label>
+                    <br>
+                    <br>
+                    <p>
+                        Para reducir esta pérdida de agua y utilizar la máxima capacidad de agua, se quiere adoptar<br>
+                        un sistema de control de bloqueo de la salida del agua, basado en el tiempo, el cual se instalara<br>
+                        en el tanque 1.<br>
+                        ¿Cuál es el tiempo en el que se deben programar el cierre del flujo de agua del tanque 1?.
+                    </p>
+                    
+                    <label for="">Cierre en el segundo:  </label>
+                    <label for="" id="cierreLlave" style="font-weight:bolder;"></label>
+                    
                 </div>
             </div>
         </div>
