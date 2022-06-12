@@ -15,8 +15,8 @@ let alturaAgujeroH1= document.getElementById("alturaAgujeroH1");
 let alturaAgujeroH2= document.getElementById("alturaAgujeroH2");
 let diametroAgujeroH1= document.getElementById("diametroAgujeroH1");
 let diametroAgujeroH2= document.getElementById("diametroAgujeroH2");
-let alturaH1H2= document.getElementById("diametroAgujeroH2");
-let anchorH1H2= document.getElementById("diametroAgujeroH2");
+let alturaH1H2= document.getElementById("alturaH1H2");
+let anchorH1H2= document.getElementById("anchorH1H2");
 const imgWaterKry = new Image();
 let resultados = document.getElementById("resultados");
 let volumenTanque1;
@@ -25,21 +25,21 @@ let intervalo;
 
 
 
-function drawTanque(tanque, dezplazamiento, altura=50, diametro = 50, diametroAgujero = 5,alturaAgujero=10, nivelAgua=30){
-
+function drawTanque(tanque, dezplazamiento, altura=50, diametro = 50, diametroAgujero = 5,alturaAgujero=10, nivelAgua=30, separacionY = 0){
+    
     if(tanque.getContext){
         //console.log(`altura: ${altura} diametro ${diametro} diamettro Aguja ${diametroAgujero} altura Agujero ${alturaAgujero} nivelAgua ${nivelAgua}`);
         let tanCa = tanque.getContext('2d');
-           
+        console.log(`TAmaño es: ${tanque.height}`);
         tanCa.beginPath();
-        tanCa.moveTo(50+dezplazamiento,50);
-        tanCa.lineTo(50+dezplazamiento,altura+50);
-        tanCa.lineTo(diametro+50+dezplazamiento,altura+50);
-        tanCa.lineTo(diametro+50+dezplazamiento,50);
+        tanCa.moveTo(dezplazamiento,tanque.height-altura-separacionY);
+        tanCa.lineTo(dezplazamiento,tanque.height-separacionY);
+        tanCa.lineTo(diametro+dezplazamiento,tanque.height-separacionY);
+        tanCa.lineTo(diametro+dezplazamiento,tanque.height-altura-separacionY);
         tanCa.fillStyle = "blue";
-        tanCa.fillRect(51+dezplazamiento,51+(50-nivelAgua)+(altura-50),diametro-1,nivelAgua-1);
+        tanCa.fillRect(1+dezplazamiento,1+(tanque.height-altura-separacionY-nivelAgua)+(altura),diametro-1,nivelAgua-1);
         tanCa.fillStyle = 'gray';
-        tanCa.fillRect(51+dezplazamiento+diametro,50+altura-diametroAgujero-alturaAgujero,5,diametroAgujero);
+        tanCa.fillRect(1+dezplazamiento+diametro,tanque.height-altura-separacionY+altura-diametroAgujero-alturaAgujero,5,diametroAgujero);
         //tanCa.closePath();
         tanCa.stroke();
  
@@ -57,6 +57,8 @@ function initialValues(){
     alturaAgujeroH2.value = 5;
     nivelH1.value = 20;
     nivelH2.value = 20;
+    anchorH1H2.value = 20;
+    alturaH1H2.value = 20;
 }
 initialValues();
 function startApp(){
@@ -70,6 +72,8 @@ function startApp(){
     alturaAgujeroH2 = parseFloat(alturaAgujeroH2.value);
     nivelH1 = parseFloat(nivelH1.value);
     nivelH2 = parseFloat(nivelH2.value);
+    anchorH1H2 = parseFloat(anchorH1H2.value);
+    alturaH1H2 = parseFloat(alturaH1H2.value);
 
     intervalo = setInterval(starSimulation,10);
     
@@ -118,6 +122,10 @@ const calculateAltura = function(diametro, volumen){
     return volumen/(Math.pow(diametro/2,2)*Math.PI);
 }
 
+const calculateDistance = function(altura, nivel){
+    return 2* Math.sqrt(altura *(nivel -altura));
+}
+
 
 function calculateCaudal1(raudioAgujeroH1,h1n1,radioH1){
     let caudal = 0.6 * (Math.PI* Math.pow(raudioAgujeroH1,2)* Math.sqrt(2*9.8*(h1n1)));
@@ -150,9 +158,11 @@ function animatePaint(tanque, desplazamiento, altura, diametro, diametroAgujero,
 function rePaint(){
         tanque1.width = 300;
         tanque2.width = 300;
+        tanque1.height = 300;
+        tanque2.height = 300;
     if(alturaH1.value != ""){
-        drawTanque(tanque1,0,parseFloat(alturaH1.value),parseFloat(diametroH1.value),parseFloat(diametroAgujeroH1.value),parseFloat(alturaAgujeroH1.value),parseFloat(nivelH1.value));
-        drawTanque(tanque2,50,parseFloat(alturaH2.value),parseFloat(diametroH2.value),parseFloat(diametroAgujeroH2.value),parseFloat(alturaAgujeroH2.value),parseFloat(nivelH2.value));
+        drawTanque(tanque1,0,parseFloat(alturaH1.value),parseFloat(diametroH1.value),parseFloat(diametroAgujeroH1.value),parseFloat(alturaAgujeroH1.value),parseFloat(nivelH1.value),parseFloat(alturaH1H2.value/2));
+        drawTanque(tanque2,parseFloat(anchorH1H2.value)+parseFloat(diametroH1.value),parseFloat(alturaH2.value),parseFloat(diametroH2.value),parseFloat(diametroAgujeroH2.value),parseFloat(alturaAgujeroH2.value),parseFloat(nivelH2.value),tanque1.height-parseFloat(alturaH2.value)-parseFloat(alturaH1H2.value/2));
     }else{
         drawTanque(tanque1,0); 
         drawTanque(tanque2,50);
