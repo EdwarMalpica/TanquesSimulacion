@@ -7,17 +7,18 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <title>Simulacion tanques</title>
-
+</head>
+<body >
     <h1>Simulacion de Tanques</h1>
     <div class="container">
         <div class="row">
-            <div class="col">
-                <div >
+            <div class="col" onload="rePaint()">
+                <div class="sinMargin">
                     <canvas id="tanque1" >
             
                     </canvas>
                 </div>
-                <div>
+                <div class="sinMargin">
                     <canvas id="tanque2">
             
                     </canvas>
@@ -31,61 +32,53 @@
                 <div >
                     <div class="m-2">
                         <label for="">Altura Tanque 1</label>
-                        <input id="alturaH1" type="number" max="100" min="0">
+                        <input id="alturaH1" type="number" max="100" min="0" onchange="rePaint()">
                     </div>
                     <div class="m-2">
                         <label for="">Altura Tanque 2</label>
-                        <input id="alturaH2" type="number" max="100" min="0">
+                        <input id="alturaH2" type="number" max="100" min="0" onchange="rePaint()">
                     </div>
                     <div class="m-2">
                         <label for="">Diametro Tanque 1</label>
-                        <input id="diametroH1" type="number" max="100" min="0">
+                        <input id="diametroH1" type="number" max="100" min="0" onchange="rePaint()">
                     </div>
                     <div class="m-2">
                         <label for="">Diametro Tanque 2</label>
-                        <input id="diametroH2" type="number" max="100" min="0">
+                        <input id="diametroH2" type="number" max="100" min="0" onchange="rePaint()">
                     </div class="m-2">
                     <div class="m-2">
                         <label for="">Diametro Agujero tanque 1</label>
-                        <input id="diametroAgujeroH1" type="number" max="100" min="0">
+                        <input id="diametroAgujeroH1" type="number" max="100" min="0" onchange="rePaint()">
                     </div>
                     <div class="m-2">
                         <label for="">Diametro Agujero tanque 2</label>
-                        <input id="diametroAgujeroH2" type="number" max="100" min="0">
+                        <input id="diametroAgujeroH2" type="number" max="100" min="0" onchange="rePaint()">
                     </div >
                     <div class="m-2">
                         <label for="">Altura Agujero tanque 1</label>
-                        <input id="alturaAgujeroH1" type="number" max="100" min="0">
+                        <input id="alturaAgujeroH1" type="number" max="100" min="0" onchange="rePaint()">
                     </div>
                     <div class="m-2">
                         <label for="">Altura Agujero tanque 2</label>
-                        <input id="alturaAgujeroH2" type="number" max="100" min="0">
+                        <input id="alturaAgujeroH2" type="number" max="100" min="0" onchange="rePaint()">
                     </div >
                     <div class="m-2">
-                        <label for="">Nivel incial Agua tanque 1 tanque 2</label>
-                        <input id="nivelH1" type="number" max="100" min="0">
+                        <label for="">Nivel incial Agua tanque 1 </label>
+                        <input id="nivelH1" type="number" max="100" min="0" onchange="rePaint()">
                     </div>
                     <div class="m-2">
-                        <label for="">Nivel inical Agua tanque 2</label> Agujero tanque 2</label>
-                        <input id="nivelH2" type="number" max="100" min="0">
+                        <label for="">Nivel inical Agua tanque 2 </label>
+                        <input id="nivelH2" type="number" max="100" min="0" onchange="rePaint()">
                     </div> 
                 </div>
                 <div class="container" id="resultados">
-                        
+
                 </div>
             </div>
         </div>
     </div>
     
-
-    
-
-   
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-</head>
-<body>
-    
     <script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>
