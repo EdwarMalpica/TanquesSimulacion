@@ -39,11 +39,62 @@ function drawTanque(tanque, dezplazamiento, altura=50, diametro = 50, diametroAg
         tanCa.fillStyle = "blue";
         tanCa.fillRect(1+dezplazamiento,1+(tanque.height-altura-separacionY-nivelAgua)+(altura),diametro-1,nivelAgua-1);
         tanCa.fillStyle = 'gray';
-        tanCa.fillRect(1+dezplazamiento+diametro,tanque.height-altura-separacionY+altura-diametroAgujero-alturaAgujero,5,diametroAgujero);
+        tanCa.fillRect(1+dezplazamiento+diametro,tanque.height-separacionY-diametroAgujero-alturaAgujero,5,diametroAgujero);
         //tanCa.closePath();
         tanCa.stroke();
  
     }
+}
+
+/*function drawWater(distancia=30, distaciaHastaBase=24 ){
+    if(tanque1.getContext && tanque2.getContext){
+       // console.log("Entro");
+       let tanCa1 = tanque1.getContext('2d');
+       let tanCa2 = tanque2.getContext('2d');
+       
+       tanCa1.strokeStyle = "blue";
+       tanCa1.lineWidth = parseFloat(diametroAgujeroH1.value);
+       //tanCa1.moveTo(1+diametroH1,tanCa1.height-anchorH1H2/2-diametroAgujeroH1-alturaAgujeroH1);
+       tanCa1.beginPath();
+       tanCa1.moveTo(1+parseFloat(diametroH1.value),tanque1.height-parseFloat(anchorH1H2.value)/2-parseFloat(diametroAgujeroH1.value)/2-parseFloat(alturaAgujeroH1.value));
+       tanCa1.quadraticCurveTo(distaciaHastaBase+1+parseFloat(diametroH1.value), tanque1.height-parseFloat(anchorH1H2.value)/2-parseFloat(diametroAgujeroH1.value)-parseFloat(alturaAgujeroH1.value)+5, distaciaHastaBase+3+parseFloat(diametroH1.value), tanque1.height);
+       tanCa1.stroke();
+
+       tanCa2.strokeStyle = "blue";
+       tanCa2.lineWidth = parseFloat(diametroAgujeroH1.value);
+       tanCa2.beginPath();
+       tanCa2.moveTo(distaciaHastaBase+2+parseFloat(diametroH1.value),0);
+       tanCa2.quadraticCurveTo(distancia-1+parseFloat(diametroH1.value),0,distancia+1+parseFloat(diametroH1.value),parseFloat(anchorH1H2.value)/2);
+       tanCa2.stroke();
+       //tanCa1.fillRect(10,10,50,50);
+       //tanCa1.lineTo(50,50);
+       //tanCa1.quadraticCurveTo(25, 25, 25, 62.5); 
+    }
+
+}*/
+
+function drawWater(distancia=30 ){
+    if(tanque1.getContext && tanque2.getContext){
+       let tanCa1 = tanque1.getContext('2d');
+       let tanCa2 = tanque2.getContext('2d');
+       
+       tanCa1.strokeStyle = "blue";
+       tanCa1.lineWidth = diametroAgujeroH1;
+       tanCa1.beginPath();
+       tanCa1.moveTo(diametroH1,tanque1.height-alturaH1H2/2-diametroAgujeroH1/2-alturaAgujeroH1);
+       tanCa1.quadraticCurveTo(distancia+1+diametroH1, tanque1.height-alturaH1H2/2-diametroAgujeroH1-alturaAgujeroH1+5, distancia+3+diametroH1, tanque1.height);
+       tanCa1.stroke();
+
+       tanCa2.strokeStyle = "blue";
+       tanCa2.lineWidth = diametroAgujeroH1;
+       tanCa2.beginPath();
+       tanCa2.moveTo(distancia+diametroH1+3,0);
+       tanCa2.quadraticCurveTo(distancia+diametroH1+3,0,distancia+5+diametroH1,alturaH1H2/2+alturaH2);
+       tanCa2.stroke();
+ 
+
+    }
+
 }
 
 function initialValues(){
@@ -51,7 +102,7 @@ function initialValues(){
     alturaH2.value = 50;
     diametroH1.value = 50;
     diametroH2.value = 50;
-    diametroAgujeroH1.value = 5;
+    diametroAgujeroH1.value = 2;
     diametroAgujeroH2.value = 5;
     alturaAgujeroH1.value = 5;
     alturaAgujeroH2.value = 5;
@@ -74,7 +125,6 @@ function startApp(){
     nivelH2 = parseFloat(nivelH2.value);
     anchorH1H2 = parseFloat(anchorH1H2.value);
     alturaH1H2 = parseFloat(alturaH1H2.value);
-
     intervalo = setInterval(starSimulation,10);
     
 
@@ -85,24 +135,36 @@ function startApp(){
 }
 
 function starSimulation(){
-    let altura = nivelH1-alturaAgujeroH1;
-    volumenTanque1 = calculateVolumen(diametroH1,altura)
-    console.log(`Volumen: ${volumenTanque1}`);
-    let velocidadTanque1 = calculateVelocidad(altura);
-    let caudalTanque1 = calculateCaudal(diametroAgujeroH1,velocidadTanque1);
-    volumenTanque1 = volumenTanque1 - caudalTanque1;
-    altura = calculateAltura(diametroH1, volumenTanque1);
-    nivelH1 = altura + alturaAgujeroH1;
-    animatePaint(tanque1,0,alturaH1,diametroH1, diametroAgujeroH1, alturaAgujeroH1, nivelH1);
 
+    let altura = nivelH1-alturaAgujeroH1;
+    
     if(altura>0){
-        console.log("sigo vivo "+altura);
+        
+        volumenTanque1 = calculateVolumen(diametroH1,altura)
+        let velocidadTanque1 = calculateVelocidad(altura);
+        let caudalTanque1 = calculateCaudal(diametroAgujeroH1,velocidadTanque1);
+        let distancia = calculateDistance(altura,(alturaH1H2+alturaAgujeroH1));
+        //console.log(`Distancia: ${distancia} nivelH1 ${nivelH1} alturaAgujero ${alturaAgujeroH1} alturaH1H2 ${alturaH1H2}`);
+        volumenTanque1 = volumenTanque1 - caudalTanque1;
+        altura = calculateAltura(diametroH1, volumenTanque1);
+        nivelH1 = altura + alturaAgujeroH1;
+        animatePaint(tanque1,0,alturaH1,diametroH1, diametroAgujeroH1, alturaAgujeroH1, nivelH1, alturaH1H2/2);
+        animatePaint(tanque2,anchorH1H2+diametroH1,alturaH2,diametroH2,diametroAgujeroH2, alturaAgujeroH2,nivelH2,tanque2.height-alturaH2-alturaH1H2/2);
+        drawWater(distancia);
+
+        if(distancia>anchorH1H2 && distancia< anchorH1H2+diametroH2){
+            volumenTanque2 = calculateVolumen(diametroH2, nivelH2);
+            volumenTanque2 = volumenTanque2+caudalTanque1;
+            nivelH2 = calculateAltura(diametroH2, volumenTanque2);
+        }
     }else{
-        console.log(`altura ${altura} caudal ${caudalTanque1} volumenTanque1 ${volumenTanque1}`);
+        
         clearInterval(intervalo);
     }
 
 }
+
+
 
 
 
@@ -123,7 +185,12 @@ const calculateAltura = function(diametro, volumen){
 }
 
 const calculateDistance = function(altura, nivel){
-    return 2* Math.sqrt(altura *(nivel -altura));
+    
+    let distance = 2* Math.sqrt(altura *(nivel));
+
+    console.log(`altura ${typeof altura} nivel ${typeof nivel} distance ${distance}`);
+
+    return distance;
 }
 
 
@@ -149,9 +216,9 @@ function getHeight(volumenF,volumen,h1n1){
     return height;
 }
 
-function animatePaint(tanque, desplazamiento, altura, diametro, diametroAgujero, alturaAgujero, nivelAgua){
+function animatePaint(tanque, desplazamiento, altura, diametro, diametroAgujero, alturaAgujero, nivelAgua, separacionY){
     tanque.width = 300;
-    drawTanque(tanque,desplazamiento, altura, diametro, diametroAgujero, alturaAgujero, nivelAgua);
+    drawTanque(tanque,desplazamiento, altura, diametro, diametroAgujero, alturaAgujero, nivelAgua, separacionY);
 }
 
 
@@ -162,11 +229,14 @@ function rePaint(){
         tanque2.height = 300;
     if(alturaH1.value != ""){
         drawTanque(tanque1,0,parseFloat(alturaH1.value),parseFloat(diametroH1.value),parseFloat(diametroAgujeroH1.value),parseFloat(alturaAgujeroH1.value),parseFloat(nivelH1.value),parseFloat(alturaH1H2.value/2));
-        drawTanque(tanque2,parseFloat(anchorH1H2.value)+parseFloat(diametroH1.value),parseFloat(alturaH2.value),parseFloat(diametroH2.value),parseFloat(diametroAgujeroH2.value),parseFloat(alturaAgujeroH2.value),parseFloat(nivelH2.value),tanque1.height-parseFloat(alturaH2.value)-parseFloat(alturaH1H2.value/2));
+        drawTanque(tanque2,parseFloat(anchorH1H2.value)+parseFloat(diametroH1.value),parseFloat(alturaH2.value),parseFloat(diametroH2.value),parseFloat(diametroAgujeroH2.value),parseFloat(alturaAgujeroH2.value),parseFloat(nivelH2.value),tanque1.height-parseFloat(alturaH2.value)-parseFloat(alturaH1H2.value)/2);
+        
     }else{
         drawTanque(tanque1,0); 
         drawTanque(tanque2,50);
+       
     }
+    drawWater();
     
 }
 
